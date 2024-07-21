@@ -34,8 +34,8 @@ What is this application doing?
 This application allows users to view and join virtual study rooms to interact and learn about the latest technologies. Users can sign up, log in, join rooms, and start interacting with participants. They can also create, edit, and delete rooms and manage their profiles.
 
 **Features Include:**
+
 	1. User Authentication:
-		
 		Sign up or log in to access the application.
 
 	2. Study Rooms:
