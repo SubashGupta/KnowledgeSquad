@@ -1,0 +1,56 @@
+{% extends 'main.html' %} {% block content %} {%if roomDetails %}
+<style>
+  .room-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+</style>
+<div class="room-container">
+  <div>
+    <h1>{{roomDetails.name}}</h1>
+    <p>{{roomDetails.description}}</p>
+    <div class="comment-wrapper">
+      <h3>Conversation History</h3>
+      <hr />
+      {%for message in messagesList%}
+      <div>
+        {% if request.user == message.user%}
+        <a href="{% url 'deleteMessage' message.id %}">Delete</a>
+        {% endif %}
+        <small>@{{message.user}} {{message.name}}</small>
+      </div>
+      <div>
+        <small>Created: {{message.createdat|timesince}} ago </small> |
+        <small>Updated: {{message.updatedat|timesince}} ago </small>
+      </div>
+      <div>
+        <p>Message: {{message.messagebody}}</p>
+      </div>
+      <hr />
+      {%endfor%}
+    </div>
+    <br />
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="inputmessage"
+          placeholder="Enter your message"
+        />
+      </form>
+    </div>
+    {%endif%}
+  </div>
+  <div>
+    <h2>Participants</h2>
+    <hr />
+    {%for participants in participantsList %}
+    <p>@{{participants}}</p>
+    {% endfor %}
+  </div>
+</div>
+{%else%}
+<h1>No Room Name Obtained</h1>
+{%endif%} {% endblock %}
